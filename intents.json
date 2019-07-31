@@ -1,0 +1,34 @@
+{"intents": [
+        {"tag": "say_hi",
+        "patterns": ["Hi", "How's it going", "Hello there", "Hello!"],
+        "responses": ["Hey", "Hi! Good to see you", "Hello friend", "Hello old friend."],
+        "context_set": ""
+        },
+        {"tag": "find_stock",
+        "patterns":["What is Tesla's stock price?", "What is the value of Microsoft stock?", "What is Google stock right now?"],
+        "responses":["It's $422"]
+        },
+        {"tag": "find_crypto",
+            "patterns":["What's the price of Bitcoin", "What is the market value of Litcoin", 
+                "How is Ethereum doing on the coin market?", "What does XRP cost in dollars?"],
+            "responses":["$12,234,142"]
+        },
+        {"tag": "find_symbol",
+            "patterns":["What's Microsoft's stock symbol?", "What is Google's symbol on the stock market?", "What is Tesla's ticker symbol?"],
+            "responses":["GOOGL may or may not be the symbol."]
+        },
+        {"tag": "say_bye",
+        "patterns":["See ya", "See you later", "Goodbye"],
+        "responses":["It was nice chatting with you!", "Goodbye", "Bye-bye."]   
+        },
+        {"tag": "say_thanks",
+        "patterns": ["Thanks!","Thank you", "Thanks a lot", "Thanks, appreciate it"],
+        "responses": ["Happy to help!", "Of course!", "Don't mention it"]
+        },
+        {"tag": "stocks_general",
+            "patterns": ["I'd like some information about stocks","I want to know about stocks", "I want to know a company's stock price"],
+            "responses": ["Happy to help!", "Of course!", "Don't mention it"],
+            "context_set": "expect_company"
+        }     
+    ]
+}
