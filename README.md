@@ -1,2 +1,2 @@
 CBot:
-Prototype for a chatbot that can answer questions regarding financial data (using AlphaVantage's API).
+Prototype for a context-aware chatbot that can answer questions regarding financial data (using AlphaVantage's API).
