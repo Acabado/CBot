@@ -1,0 +1,230 @@
+[
+    {
+      "CurrencyCode": "AED",
+      "CurrencyName": ["United Arab Emirates Dirham", "Dirham"]
+    },
+    {
+      "CurrencyCode": "ARS",
+      "CurrencyName": "Argentine Peso"
+    },
+    {
+      "CurrencyCode": "AUD",
+      "CurrencyName": "Australian Dollar"
+    },
+    {
+      "CurrencyCode": "BGN",
+      "CurrencyName": "Bulgarian Lev"
+    },
+    {
+      "CurrencyCode": "BND",
+      "CurrencyName": "Brunei Dollar"
+    },
+    {
+      "CurrencyCode": "BOB",
+      "CurrencyName": "Bolivian Boliviano"
+    },
+    {
+      "CurrencyCode": "BRL",
+      "CurrencyName": "Brazilian Real"
+    },
+    {
+      "CurrencyCode": "CAD",
+      "CurrencyName": "Canadian Dollar"
+    },
+    {
+      "CurrencyCode": "CHF",
+      "CurrencyName": ["Swiss Franc", "Franc"]
+    },
+    {
+      "CurrencyCode": "CLP",
+      "CurrencyName": "Chilean Peso"
+    },
+    {
+      "CurrencyCode": "CNY",
+      "CurrencyName": "Chinese Yuan Renminbi"
+    },
+    {
+      "CurrencyCode": "COP",
+      "CurrencyName": "Colombian Peso"
+    },
+    {
+      "CurrencyCode": "CZK",
+      "CurrencyName": "Czech Republic Koruna"
+    },
+    {
+      "CurrencyCode": "DKK",
+      "CurrencyName": "Danish Krone"
+    },
+    {
+      "CurrencyCode": "EGP",
+      "CurrencyName": "Egyptian Pound"
+    },
+    {
+      "CurrencyCode": "EUR",
+      "CurrencyName": "Euro"
+    },
+    {
+      "CurrencyCode": "FJD",
+      "CurrencyName": "Fijian Dollar"
+    },
+    {
+      "CurrencyCode": "GBP",
+      "CurrencyName": ["British Pound Sterling", "Pound"]
+    },
+    {
+      "CurrencyCode": "HKD",
+      "CurrencyName": "Hong Kong Dollar"
+    },
+    {
+      "CurrencyCode": "HRK",
+      "CurrencyName": "Croatian Kuna"
+    },
+    {
+      "CurrencyCode": "HUF",
+      "CurrencyName": "Hungarian Forint"
+    },
+    {
+      "CurrencyCode": "IDR",
+      "CurrencyName": "Indonesian Rupiah"
+    },
+    {
+      "CurrencyCode": "ILS",
+      "CurrencyName": "Israeli New Sheqel"
+    },
+    {
+      "CurrencyCode": "INR",
+      "CurrencyName": ["Indian Rupee", "Rupee"]
+    },
+    {
+      "CurrencyCode": "JPY",
+      "CurrencyName": ["Japanese Yen", "Yen"]
+    },
+    {
+      "CurrencyCode": "KES",
+      "CurrencyName": "Kenyan Shilling"
+    },
+    {
+      "CurrencyCode": "KRW",
+      "CurrencyName": "South Korean Won"
+    },
+    {
+      "CurrencyCode": "LTL",
+      "CurrencyName": "Lithuanian Litas"
+    },
+    {
+      "CurrencyCode": "MAD",
+      "CurrencyName": "Moroccan Dirham"
+    },
+    {
+      "CurrencyCode": "MXN",
+      "CurrencyName": "Mexican Peso"
+    },
+    {
+      "CurrencyCode": "MYR",
+      "CurrencyName": "Malaysian Ringgit"
+    },
+    {
+      "CurrencyCode": "NOK",
+      "CurrencyName": "Norwegian Krone"
+    },
+    {
+      "CurrencyCode": "NZD",
+      "CurrencyName": "New Zealand Dollar"
+    },
+    {
+      "CurrencyCode": "PEN",
+      "CurrencyName": "Peruvian Nuevo Sol"
+    },
+    {
+      "CurrencyCode": "PHP",
+      "CurrencyName": "Philippine Peso"
+    },
+    {
+      "CurrencyCode": "PKR",
+      "CurrencyName": "Pakistani Rupee"
+    },
+    {
+      "CurrencyCode": "PLN",
+      "CurrencyName": "Polish Zloty"
+    },
+    {
+      "CurrencyCode": "RON",
+      "CurrencyName": "Romanian Leu"
+    },
+    {
+      "CurrencyCode": "RSD",
+      "CurrencyName": "Serbian Dinar"
+    },
+    {
+      "CurrencyCode": "RUB",
+      "CurrencyName": "Russian Ruble"
+    },
+    {
+      "CurrencyCode": "SAR",
+      "CurrencyName": "Saudi Riyal"
+    },
+    {
+      "CurrencyCode": "SEK",
+      "CurrencyName": "Swedish Krona"
+    },
+    {
+      "CurrencyCode": "SGD",
+      "CurrencyName": "Singapore Dollar"
+    },
+    {
+      "CurrencyCode": "THB",
+      "CurrencyName": "Thai Baht"
+    },
+    {
+      "CurrencyCode": "TRY",
+      "CurrencyName": "Turkish Lira"
+    },
+    {
+      "CurrencyCode": "TWD",
+      "CurrencyName": "New Taiwan Dollar"
+    },
+    {
+      "CurrencyCode": "UAH",
+      "CurrencyName": "Ukrainian Hryvnia"
+    },
+    {
+      "CurrencyCode": "USD",
+      "CurrencyName": ["US Dollar", "Dollar"]
+    },
+    {
+      "CurrencyCode": "VEF",
+      "CurrencyName": "Venezuelan BolÃ­Â­var Fuerte"
+    },
+    {
+      "CurrencyCode": "VND",
+      "CurrencyName": "Vietnamese Dong"
+    },
+    {
+      "CurrencyCode": "ZAR",
+      "CurrencyName": "South African Ran"
+    },
+    {
+        "CurrencyCode": "BTC",
+        "CurrencyName": "Bitcoin"
+      },
+      {
+        "CurrencyCode": "LTC",
+        "CurrencyName": "Litecoin"
+      },
+      {
+        "CurrencyCode": "ETH",
+        "CurrencyName": "Ethereum"
+      },
+      {
+        "CurrencyCode": "XRP",
+        "CurrencyName": "XRP"
+      },
+      {
+        "CurrencyCode": "BCH",
+        "CurrencyName": "Bitcoin Cash"
+      },
+      {
+        "CurrencyCode": "DOGE",
+        "CurrencyName": "Dogecoin"
+      }
+  ]
