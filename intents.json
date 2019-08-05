@@ -1,34 +1,72 @@
 {"intents": [
         {"tag": "say_hi",
-        "patterns": ["Hi", "How's it going", "Hello there", "Hello!"],
-        "responses": ["Hey", "Hi! Good to see you", "Hello friend", "Hello old friend."],
-        "context_set": ""
+        "patterns": ["Hi", "How's it going", "Hello there", "Hello!", "What's up?"],
+        "responses": ["Hey", "Hi! Good to see you", "Hey buddy!", "Hello old friend."],
+        "context_req": "any"
         },
         {"tag": "find_stock",
-        "patterns":["What is Tesla's stock price?", "What is the value of Microsoft stock?", "What is Google stock right now?"],
-        "responses":["It's $422"]
+        "patterns":["What is Tesla's stock price?", "What is the value of Microsoft stock?", "What is Google stock right now?",
+                    "Find me the stock price for Apple.", "I want to know Southwest's stock price."],
+        "responses":["It's $422"],
+        "context_req": "any"
         },
-        {"tag": "find_crypto",
-            "patterns":["What's the price of Bitcoin", "What is the market value of Litcoin", 
+        {"tag": "find_currency",
+            "patterns":["What's the price of Bitcoin", "What is the market value of Litecoin", 
                 "How is Ethereum doing on the coin market?", "What does XRP cost in dollars?"],
-            "responses":["$12,234,142"]
+            "responses":["$12,234,142"],
+            "context_req": "any"
         },
         {"tag": "find_symbol",
             "patterns":["What's Microsoft's stock symbol?", "What is Google's symbol on the stock market?", "What is Tesla's ticker symbol?"],
-            "responses":["GOOGL may or may not be the symbol."]
+            "responses":["GOOGL may or may not be the symbol."],
+            "context_req": "any"
         },
         {"tag": "say_bye",
         "patterns":["See ya", "See you later", "Goodbye"],
-        "responses":["It was nice chatting with you!", "Goodbye", "Bye-bye."]   
+        "responses":["It was nice chatting with you!", "Goodbye", "Bye-bye."],
+        "context_req": "any"
         },
         {"tag": "say_thanks",
         "patterns": ["Thanks!","Thank you", "Thanks a lot", "Thanks, appreciate it"],
-        "responses": ["Happy to help!", "Of course!", "Don't mention it"]
+        "responses": ["Happy to help!", "Of course!", "Don't mention it"],
+        "context_req": "any"
         },
-        {"tag": "stocks_general",
-            "patterns": ["I'd like some information about stocks","I want to know about stocks", "I want to know a company's stock price"],
+
+        {"tag": "target_general",
+            "patterns": ["I'd like some information about stocks", "I want to know about stocks", "I want to know a company's stock price"],
             "responses": ["Happy to help!", "Of course!", "Don't mention it"],
-            "context_set": "expect_company"
-        }     
+            "context_set": "expect_entity",
+            "context_req": "none"
+        },
+        {"tag": "entity_general",
+            "patterns": ["I'd like to know about Microsoft", "I want information about the company Google"],
+            "responses": ["What would you like to know about?", "What information are you looking for?"],
+            "context_set": "expect_target",
+            "context_req": "none"
+        },
+        {"tag": "prev_entity_target",
+            "patterns": ["What about its stock price?", "What's its stock price?", "How much is their stock worth?"],
+            "responses": ["What about it?", "Heheh"],
+            "context_set": "none",
+            "context_req": "none"
+        },
+        {"tag": "prev_target_entitiy",
+            "patterns": ["What about Apple?", "How does Google compare?", "What is it for Tesla?"],
+            "responses": ["Hoooooodie Baba", "Heheh"],
+            "context_set": "none",
+            "context_req": "none"
+        },
+        {"tag": "reply_with_entity",
+            "patterns": ["Microsoft", "Apple", "Google","Dell", "Netenrich", "Ford", "Disney"],
+            "responses": ["Deal with the responses"],
+            "context_set": "none",
+            "context_req": "expect_entity"
+        },
+        {"tag": "reply_with_target",
+            "patterns": ["Stock price", "stock value"],
+            "responses": ["Bob Khandi"],
+            "context_set": "none",
+            "context_req": "expect_target"
+        }
     ]
 }
