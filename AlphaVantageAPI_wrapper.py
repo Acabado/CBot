@@ -6,14 +6,10 @@ import json
 import spacy
 import nltk
 from nltk.stem.snowball import SnowballStemmer
+import random
 
 
 
-from alpha_vantage.timeseries import TimeSeries
-from alpha_vantage.techindicators import TechIndicators
-from alpha_vantage.sectorperformance import SectorPerformances
-from alpha_vantage.cryptocurrencies import CryptoCurrencies
-from alpha_vantage.foreignexchange import ForeignExchange
 
 NO_INTENT = 0
 FIND_STOCK = 0x01
@@ -35,19 +31,27 @@ Intent = NO_INTENT
 
 
 def get_info(intent, entity, time = 0):
-        api_ID = "9BIXEUS4SXWELIF6"
+        api_IDs = ["6CHNDYO185X4Z7WT", "7H0W1931RHA3C9JI", "Q37OHKTGZWO1JX4Y", "EQBOMNU11PWHHX73", "S8L4OFNYQ6SN0MC5",
+        "YIB8FOG7A8J693HB", "O02JCU824IZ4URBX", "1MVGFL6E66S9OPUU", "72UQ6SBEN8FNBUR4", "WE4M447GEFUWG8M9", "0CIVPUWC9Z1C5T9C"]
+        api_ID = random.choice(api_IDs)
         api_url_base = "https://www.alphavantage.co/query?"
         #https://2.python-requests.org/en/master/user/quickstart/#make-a-request
  
+
         if (intent == FIND_STOCK):
-                data = {
-                "function" : "GLOBAL_QUOTE",
-                "symbol" : entity,
-                "apikey" : api_ID  
-                }    #datatype is json
-                r = requests.get(api_url_base, params=data)
-                json_dict = r.json()
-                val = json_dict['Global Quote']['05. price']
+                while(True):
+                        data = {
+                        "function" : "GLOBAL_QUOTE",
+                        "symbol" : entity,
+                        "apikey" : random.choice(api_IDs)  
+                        }    #datatype is json
+                        r = requests.get(api_url_base, params=data)
+                        json_dict = r.json()
+                        try:
+                                val = json_dict["Global Quote"]["05. price"]
+                        except:
+                                continue
+                        break  
                 return val
         elif (intent == FIND_SYMBOL):
                 data = {
@@ -57,9 +61,15 @@ def get_info(intent, entity, time = 0):
                 }
                 r = requests.get(api_url_base, params=data)
                 json_dict = r.json()
-                val = json_dict['bestMatches'][1]["1. symbol"]
+                val = json_dict['bestMatches'][0]["1. symbol"]
+                try:         
+                        get_info(FIND_STOCK, val)
+                except:
+                        val = json_dict['bestMatches'][1]["1. symbol"]
+                        get_info(FIND_STOCK, val)
+                        
+                
                 return val
-        #elif(intent == FIND_CRYPTO):
 
 
 
@@ -73,7 +83,7 @@ def get_info(intent, entity, time = 0):
 def main():
         #with open("intents.json") as json_data:
         #        intents = json.load(json_data)
-        reply = get_info(FIND_SYMBOL, "Southwest", 0)
+        reply = get_info(FIND_STOCK, "SEKEY", 0)
         print(reply)
 
 
