@@ -1,9 +1,10 @@
 #What is this project?
 
 import spacy
+from spacy.tokens import Span
 import nltk
 import numpy as np
-import random
+import random  
 import keras
 from keras.layers import Input, Dense, Activation
 from keras.models import Model, load_model
@@ -115,7 +116,7 @@ def convert2bow(sentence, words): # Converts user input into bow format
 
 ERROR_THRESHOLD = 0
  
-def decipher_intent(sentence, words, intent_types, states, userID):
+def decipher_intent(sentence, words, intent_types, states, userID, error = 0):
     model = load_model('chatbot_model1.h5')
     bag = convert2bow(sentence, words)
     bag = np.reshape(bag,(1,len(words))) # Fixed ValueError: expected dense_1_input to have shape (43,) but got array with shape (1,)
@@ -124,6 +125,7 @@ def decipher_intent(sentence, words, intent_types, states, userID):
 
     for i,k in enumerate(results):
         res.append((i,k))
+    #print(results)
     
     temp = []
 
@@ -131,24 +133,27 @@ def decipher_intent(sentence, words, intent_types, states, userID):
         res[11] = (11, 0)
     if states[userID] != "expect_entity":
         res[10] = (10, 0)
+    if states[userID] != "expect_comp":
+        res[13] = (13, 0)
         
     for j in res:
         intent = intent_types[j[0]]
         if j[1] > ERROR_THRESHOLD:
             temp.append((intent, j[1]))
     temp.sort(key=lambda x: x[1], reverse=True)
-
     if len(temp) == 0:
         return "yikes"
     else:
-        return temp[0][0]
+        return temp[error][0]
 
 def process_sentence(sentence, intent, states, entityHolder, targetHolder, userID):
     sentence = sentence + "."
     nlp = spacy.load('en_core_web_sm')
+    
+    
     doc = nlp(sentence)
     entities = []
-   
+    #print(entities)
     for ent in doc.ents: 
         entities.append((ent.text, ent.label_))
     
@@ -172,11 +177,13 @@ def process_sentence(sentence, intent, states, entityHolder, targetHolder, userI
         return ret
     elif intent == "target_general":
         states[userID] = "expect_entity"
+        entityHolder[userID] = ""
         targetHolder[userID] = "find_stock" # change this later (right now this only works for stock prices)
         return 
     elif intent == "entity_general":
         states[userID] = "expect_target"
-        entityHolder[userID] = entities[0][0]
+        if len(entities) != 0:
+            entityHolder[userID] = entities[0][0]
         return 
     elif intent == "prev_entity_target" or intent == "reply_with_target": # this too only works for stock prices ;...;
         states[userID] = "none"
@@ -188,24 +195,44 @@ def process_sentence(sentence, intent, states, entityHolder, targetHolder, userI
         return ret
     elif intent == "prev_target_entity" or intent == "reply_with_entity":
         states[userID] = "none"
-        entityHolder[userID] = entities[0][0]
+        if len(entities) != 0:
+            entityHolder[userID] = entities[0][0]
         if targetHolder[userID] == "find_stock":
-            symbol = get_info(FIND_SYMBOL, entities[0][0])
+            #print("Entity: " + entityHolder[userID])
+            symbol = get_info(FIND_SYMBOL, entityHolder[userID])
             val = get_info(FIND_STOCK, symbol)
             ret = entityHolder[userID] + " stock price in USD is " + val + "."
             return ret
         elif targetHolder[userID] == "find_symbol":
-            symbol = get_info(FIND_SYMBOL, entities[0][0])
-            ret = entities[0][0] + "\'s ticker symbol is " + symbol + "."
+            symbol = get_info(FIND_SYMBOL, entityHolder[userID])
+            ret = entityHolder[userID] + "\'s ticker symbol is " + symbol + "."
             return ret
- 
+    elif intent == "compare_stocks":
+        #print("Compare stock!!!!!!!!!!!!!!!!")
+        states[userID] = "expect_comp"
+        return
+    elif intent == "reply_with_comparison":
+        states[userID] = ""
+        ret = ""
+        if len(entities) != 0:
+            print(entities[0][1])
+            for ent in enumerate(entities):
+                symbol = get_info(FIND_SYMBOL, entities[0][ent[0]])
+                val = get_info(FIND_STOCK, symbol)
+                ret += entities[0][ent[0]] + " stock price in USD is " + val + ". "
+        return ret
+
+
+
     return
 
 def respond(intent, val = ""): # Tells chatbot what to respond with
-    if intent == "say_hi" or intent == "say_bye" or intent == "say_thanks" or intent == "target_general" or intent == "entity_general":
+    if intent == "say_hi" or intent == "say_bye" or intent == "say_thanks" or intent == "target_general" or intent == "entity_general" or intent == "compare_stocks":
         for i in data['intents']:
             if i['tag'] == intent:
                 print(random.choice(i['responses']))
+                if intent == "say_bye":
+                    exit(0)
                 return
     elif intent == "yikes":
         print("Sorry. Don't know what that means.")
@@ -216,13 +243,21 @@ def respond(intent, val = ""): # Tells chatbot what to respond with
     # The States dict works as follows: Each user can only be in one "state" at a time (hence the 1 to 1 mapping).
     # The different states are default, expect_entity(which means we expect an entity from the user),
     # entity_present and query present. 
+
+def deal_with_error(sentence, words, intent_types, states, userID, error_count):
+    print("Sorry about that! Recalculating...\n")
+    intent = decipher_intent(sentence, words, intent_types, states, userID, error_count)
+    print("Intent: " + intent)
+    ret = process_sentence(sentence, intent, states, entityHolder, targetHolder, "USER_1")
+    respond(intent, ret)
+
  
 
 states = {}
 entityHolder = {}
 targetHolder = {}
 
-def main():
+def main(): 
     
     states['USER_1'] = "none"
     entityHolder['USER_1'] = ""
@@ -244,12 +279,22 @@ def main():
     model.fit(train_x, train_y, epochs=500, batch_size=8, verbose=1)
     model.save("chatbot_model1.h5")'''
 
-
+    prev_sent = ""
+    error_count = 0
     while(True):
         print("Current State: " + states['USER_1'])
         print("Current Entity: " + entityHolder['USER_1'])
         print("Current Target Intent: " + targetHolder['USER_1'])
         sent = input()
+        
+        
+        if sent == "1@3":
+            error_count += 1
+            deal_with_error(prev_sent, words, intent_types, states, "USER_1", error_count)
+            continue
+        else:
+            error_count = 0
+        prev_sent = sent
         intent = decipher_intent(sent, words, intent_types, states, "USER_1")
         print("Intent: " + intent)
 
